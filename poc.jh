@@ -1,0 +1,50 @@
+entity Offer {
+	rname String
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Location {
+	streetAddress String,
+	postalCode String,
+	city String,
+	stateProvince String
+}
+
+entity Customer {
+	firstName String,
+	lastName String,
+	email String,
+	phoneNumber String,
+}
+
+entity Order {
+	date Date,
+    status STATUS
+}
+
+enum STATUS {
+    IN_PROGRESS, TERMINATED, IN_ERROR
+}
+
+relationship OneToOne {
+	Customer{address} to Location
+}
+
+relationship ManyToOne {
+	Order{customer} to Customer
+}
+
+relationship ManyToOne {
+	Order{offer} to Offer
+}
+
+// Set pagination options
+paginate Customer with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl except Employee, Job
+// Set an angular suffix
+angularSuffix * with mySuffix
